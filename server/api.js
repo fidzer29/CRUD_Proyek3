@@ -13,11 +13,26 @@ mongoose.connect(db, (err) => {
     if(err) console.log("Error: " + err)
 })
 
+// router.get('/save', (req, res) => {
+//     let newItem = new ItemSchema({
+//         ItemId: uuidv4(),
+//         ItemName: "Sepatu",
+//         ItemStatus: "Active",
+//         ItemDateUpload: Date.now(),
+//         ItemExpired: Date.now(),
+//     })
+
+//     newItem.save((err, data) => {
+//         if (err) console.log(err)
+//         else res.send("Data Inserted")
+//     })
+// })
+
 router.get('/save', (req, res) => {
     let newItem = new ItemSchema({
         ItemId: uuidv4(),
-        ItemName: "Sepatu",
-        ItemStatus: "Active",
+        ItemName: req.body.ItemName,
+        ItemStatus: req.body.ItemStatus,
         ItemDateUpload: Date.now(),
         ItemExpired: Date.now(),
     })
@@ -25,6 +40,45 @@ router.get('/save', (req, res) => {
     newItem.save((err, data) => {
         if (err) console.log(err)
         else res.send("Data Inserted")
+    })
+})
+
+router.get('/read', (req, res) => {
+    ItemSchema.find((err, data) => {
+        // if(err) console.log(err);
+        // else res.send(data);
+        if(err) console.log(err);
+        else{
+            res.render('index');
+        }
+    })
+})
+
+router.get('/readfirst', (req, res) => {
+    ItemSchema.findOne({ItemName:"Sepatu"}),
+    (err, data) => {
+        if(err) console.log(err);
+        else res.send(data);
+    }
+})
+
+router.delete('/delete', (req, res) => {
+    ItemSchema.findByIdAndDelete((req.body.id), (err, data) =>{
+        if(err) console.log(err)
+        else{
+            res.send(data);
+            console.log("Data Deleted!");
+        }
+    })
+})
+
+router.put('/update', (req, res) => {
+    ItemSchema.findByIdAndUpdate(req.body.id, {ItemName: req.body.name, ItemStatus: req.body.status, ItemExpired: req.body.expiredDate}, (err, data) => {
+        if(err) console.log(err)
+        else{
+            res.send(data);
+            console.log("Data Updated!");
+        }
     })
 })
 
