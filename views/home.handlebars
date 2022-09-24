@@ -1,19 +1,65 @@
-<h1>Example App: Home</h1>
+<div class="container">
+    <br>
+    <h1>CRUD App</h1>
+    <br>
+    <form action="/input" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" name="ItemName" class="form-control" id="floatingInput" placeholder="Item Name">
+                    <label for="floatingInput">Item Name</label>
+                </div>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered">
+    <tr>
+        <th>Item ID</th>
+        <th>Item Name</th>
+        <th>Option</th>
+    </tr>
+    {{#each data}}
+    <tr>
+        <td>
+            {{#each this}}
+                {{this.ItemId}}
+            {{/each}}
+        </td>
+        <td>
+            {{#each this}}
+                {{this.ItemName}}
+            {{/each}}
+        </td>
+        <td>
+            <form action="/delete" method="post">
+                <input type="hidden" name="_Id" value= {{#each this}} {{this._id}} {{/each}}>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
 
-{{!-- {{#with data as | data |}}
-    <p>{{data.ItemName}}</p>
-{{/with}} --}}
-
-{{#each data}}
-    {{this}}
-    <p>{{ItemName}}</p>
-{{/each}}
-
-{{!-- {{#each data}}
-    {{!-- {{@index}}: {{this.[1].ItemName}} --}}
-    {{!-- <p>{{this}}</p> --}}
-    {{!-- <p>{{this.ItemName}}</p>
-    <p>{{this.ItemStatus}}</p> --}}
-    {{!-- <p>{{this.ItemDateUpload}}</p>
-    <p>{{this.ItemExpired}}</p> --}}
-{{!-- {{/each}} --}}
+            <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Update
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <form action="/update" method="post">
+                    <input type="hidden" name="_Id" value= {{#each this}} {{this._id}} {{/each}}>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="ItemId" value= {{#each this}} {{this.ItemId}} {{/each}} class="form-control" id="floatingInput" placeholder="Item Id">
+                        <label for="floatingInput">Item Id</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="ItemName" value= {{#each this}} {{this.ItemName}} {{/each}} class="form-control" id="floatingInput" placeholder="Item Id">
+                        <label for="floatingInput">Item Name</label>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </form>
+            </ul>
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+</div>

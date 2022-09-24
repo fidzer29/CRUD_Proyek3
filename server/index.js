@@ -3,7 +3,7 @@ const { engine } = require("express-handlebars");
 const bodyParser = require("body-parser")
 const api = require("./api")
 const router = require("./api")
-const path = require("path")
+const path = require("path");
 
 const app = express()
 
@@ -19,4 +19,4 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(bodyParser.json())
 
-app.use("/api", api)
+app.use("/", api)
