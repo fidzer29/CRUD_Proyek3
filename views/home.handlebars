@@ -1,0 +1,19 @@
+<h1>Example App: Home</h1>
+
+{{!-- {{#with data as | data |}}
+    <p>{{data.ItemName}}</p>
+{{/with}} --}}
+
+{{#each data}}
+    {{this}}
+    <p>{{ItemName}}</p>
+{{/each}}
+
+{{!-- {{#each data}}
+    {{!-- {{@index}}: {{this.[1].ItemName}} --}}
+    {{!-- <p>{{this}}</p> --}}
+    {{!-- <p>{{this.ItemName}}</p>
+    <p>{{this.ItemStatus}}</p> --}}
+    {{!-- <p>{{this.ItemDateUpload}}</p>
+    <p>{{this.ItemExpired}}</p> --}}
+{{!-- {{/each}} --}}

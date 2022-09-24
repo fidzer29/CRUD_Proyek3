@@ -13,21 +13,6 @@ mongoose.connect(db, (err) => {
     if(err) console.log("Error: " + err)
 })
 
-// router.get('/save', (req, res) => {
-//     let newItem = new ItemSchema({
-//         ItemId: uuidv4(),
-//         ItemName: "Sepatu",
-//         ItemStatus: "Active",
-//         ItemDateUpload: Date.now(),
-//         ItemExpired: Date.now(),
-//     })
-
-//     newItem.save((err, data) => {
-//         if (err) console.log(err)
-//         else res.send("Data Inserted")
-//     })
-// })
-
 router.get('/save', (req, res) => {
     let newItem = new ItemSchema({
         ItemId: uuidv4(),
@@ -43,16 +28,23 @@ router.get('/save', (req, res) => {
     })
 })
 
-router.get('/read', (req, res) => {
+router.get('/', (req, res) => {
     ItemSchema.find((err, data) => {
-        // if(err) console.log(err);
-        // else res.send(data);
         if(err) console.log(err);
         else{
-            res.render('index');
+            res.render('home', {data: data});
         }
     })
 })
+
+// router.get('/read', (req, res) => {
+//     ItemSchema.find((err, data) => {
+//         if(err) console.log(err);
+//         else{
+//             res.send(data);
+//         }
+//     })
+// })
 
 router.get('/readfirst', (req, res) => {
     ItemSchema.findOne({ItemName:"Sepatu"}),
